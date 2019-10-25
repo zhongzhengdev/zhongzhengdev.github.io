@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.deepzero.cn/"/>
-  <updated>2019-10-25T02:47:44.185Z</updated>
+  <updated>2019-10-25T02:19:31.524Z</updated>
   <id>http://www.deepzero.cn/</id>
   
   <author>
@@ -15,31 +15,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>try-with-resource-statement</title>
-    <link href="http://www.deepzero.cn/2019/10/25/try-with-resource-statement/"/>
-    <id>http://www.deepzero.cn/2019/10/25/try-with-resource-statement/</id>
-    <published>2019-10-25T02:37:06.739Z</published>
-    <updated>2019-10-25T02:47:44.185Z</updated>
-    
-    <content type="html"><![CDATA[<hr><p>title: try with resource statement<br>date: 2019-10-25 10:24:39<br>tags:<br>    - Java</p><hr><p>在读Mybatis源码时在测试类中发现一种开启sqlSession的方法，之前从未见过也未曾使用此种语法写过代码，今天在这记录一下。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">try (SqlSession sqlSession = sqlSessionFactory.openSession()) &#123;</span><br><span class="line">  //to do</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;hr&gt;
-&lt;p&gt;title: try with resource statement&lt;br&gt;date: 2019-10-25 10:24:39&lt;br&gt;tags:&lt;br&gt;    - Java&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;在读Mybatis源码时在测试类中发现一种开启sqlSession
-      
-    
-    </summary>
-    
-    
-    
-  </entry>
   
   <entry>
     <title>Hello World</title>
