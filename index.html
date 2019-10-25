@@ -191,7 +191,7 @@
                 <a class="category-link" href="/categories/Java/">Java</a>
               </p>
               <p class="item-title">
-                <a href="/2019/10/25/try-with-resource-%E8%AF%AD%E6%B3%95%E4%BD%BF%E7%94%A8/" class="title">try with resource 语法使用</a>
+                <a href="/2019/10/25/try-with-resources-%E8%AF%AD%E6%B3%95%E4%BD%BF%E7%94%A8/" class="title">try-with-resources 语法使用</a>
               </p>
               <p class="item-date">
                 <time datetime="2019-10-25T05:03:35.000Z" itemprop="datePublished">2019-10-25</time>
@@ -213,14 +213,14 @@
   
   
     <div class="content">
-  <article id="post-try-with-resource-语法使用" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-try-with-resources-语法使用" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/25/try-with-resource-%E8%AF%AD%E6%B3%95%E4%BD%BF%E7%94%A8/">try with resource 语法使用</a>
+      <a class="article-title" href="/2019/10/25/try-with-resources-%E8%AF%AD%E6%B3%95%E4%BD%BF%E7%94%A8/">try-with-resources 语法使用</a>
     </h1>
   
 
@@ -228,7 +228,7 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2019/10/25/try-with-resource-%E8%AF%AD%E6%B3%95%E4%BD%BF%E7%94%A8/" class="article-date">
+	<a href="/2019/10/25/try-with-resources-%E8%AF%AD%E6%B3%95%E4%BD%BF%E7%94%A8/" class="article-date">
 	  <time datetime="2019-10-25T05:03:35.000Z" itemprop="datePublished">2019-10-25</time>
 	</a>
 </span>
@@ -247,7 +247,7 @@
 
         
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/10/25/try-with-resource-%E8%AF%AD%E6%B3%95%E4%BD%BF%E7%94%A8/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/10/25/try-with-resources-%E8%AF%AD%E6%B3%95%E4%BD%BF%E7%94%A8/#comments" class="article-comment-link">评论</a></span>
         
 	
 		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.7k(字)</span>
@@ -260,7 +260,7 @@
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>&emsp;&emsp;读MyBatis源码的时候，发现了代码中使用以下方法来开启sqlSession，代码如下：</p>
+        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>&emsp;&emsp;读MyBatis源码的时候，发现了代码中使用以下方法来开启sqlSession，代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> (SqlSession sqlSession = sqlSessionFactory.openSession()) &#123;</span><br><span class="line">      <span class="keyword">final</span> AutoConstructorMapper mapper = sqlSession.getMapper(AutoConstructorMapper.class);</span><br><span class="line">      <span class="keyword">final</span> Object subject = mapper.getSubject(<span class="number">1</span>);</span><br><span class="line">      assertNotNull(subject);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <p>&emsp;&emsp;之前进行Java代码的编写时，只知道try结合catch和finally关键字进行对异常的捕捉和处理，代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">  <span class="comment">//业务代码</span></span><br><span class="line">&#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">  <span class="comment">//异常处理</span></span><br><span class="line">&#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">  <span class="comment">//代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -271,14 +271,10 @@
 </blockquote>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> (SqlSession session = sqlSessionFactory.openSession()) &#123;</span><br><span class="line">  <span class="comment">// 你的应用逻辑代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>&emsp;&emsp;通过上面这段话可以知道：每当接收一个请求时，可以打开一个sqlSession进行处理，处理完成后要及时的进行关闭操作。然后列举了一个使用 <strong>try(){}</strong> 语法对sqlSession的代码示例。也就是说使用 <strong>try(){}</strong> 语句将sqlSession的作用范围进行了限制，使其在完成 <strong>{}</strong> 中的相应的操作后及时进行关闭。<br>文档中的描述仅让我对 <strong>try(){}</strong> 的作用有了一个猜想：</p>
-<ol>
-<li>为了限定作用域。</li>
-<li>关闭操作。</li>
-</ol>
-<hr>
+<h5 id="1-为了限定作用域。"><a href="#1-为了限定作用域。" class="headerlink" title="1. 为了限定作用域。"></a>1. 为了限定作用域。</h5><h5 id="2-关闭操作。"><a href="#2-关闭操作。" class="headerlink" title="2. 关闭操作。"></a>2. 关闭操作。</h5><hr>
 <p>&emsp;&emsp;要想真正的弄明白这个语法的实际含义还需要进行更多的查询，既然是Java的写法，接下来Java文档中总该有对这个语法的介绍吧。于是在搜索引擎中输入“try()”这个关键字，很容易的就能查找到在Java文档中有对这个语法的介绍：<a href="https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html" target="_blank" rel="noopener">The try-with-resources Statement</a>，接下来就针对文档中的内容以及自己的理解进行一下总结。</p>
 <hr>
-<h3 id="什么是try-with-resources语法"><a href="#什么是try-with-resources语法" class="headerlink" title="什么是try-with-resources语法?"></a>什么是try-with-resources语法?</h3><p>&emsp;&emsp;首先要知道这个语法是从JDK7以后才有的。这个语法的解释可以概括为：try-with-resources是一个可以声明一个或者多个资源并且可以确保在语句结束时关闭每个资源的语法。</p>
+<h2 id="什么是try-with-resources语法"><a href="#什么是try-with-resources语法" class="headerlink" title="什么是try-with-resources语法?"></a>什么是try-with-resources语法?</h2><p>&emsp;&emsp;首先要知道这个语法是从JDK7以后才有的。这个语法的解释可以概括为：try-with-resources是一个可以声明一个或者多个资源并且可以确保在语句结束时关闭每个资源的语法。</p>
 <p>&emsp;&emsp;针对以上的解释问题又来了，解释中提到的资源是什么意思呢？根据Java文档中给出的解释：++<strong>resources指的就是程序处理完成后必须关闭的对象</strong>++，那什么样的对象才能被关闭呢？文档中给出的解释是：<strong>++任何一个实现了java.lang.AutoCloseable和java.io.Closeable接口的对象都可以称作为resources++</strong>。起初我对这个解释有点怀疑，然后查看了一下最开始的MyBatis中的SqlSession这个类，果然是继承了Closeable接口。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.apache.ibatis.session;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The primary Java interface for working with MyBatis.</span></span><br><span class="line"><span class="comment"> * Through this interface you can execute commands, get mappers and manage transactions.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Clinton Begin</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">SqlSession</span> <span class="keyword">extends</span> <span class="title">Closeable</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
 <p>然后又查看了一下Java IO中的Writer.class和Reader.class，同样的结果。</p>
@@ -286,25 +282,16 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> java.io;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Writer</span> <span class="keyword">implements</span> <span class="title">Appendable</span>, <span class="title">Closeable</span>, <span class="title">Flushable</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
 <p>截止到这我知道了它的意思，但是为什么这么用呢？是不是真的跟我的猜想一样呢？</p>
 <hr>
-<h3 id="为什么这么用？"><a href="#为什么这么用？" class="headerlink" title="为什么这么用？"></a>为什么这么用？</h3><ol>
-<li><p>代码简洁<br>&emsp;&emsp;上边的介绍让我知道了什么是try-with-resources语法，但是这么写的好处是什么？首先需要明确的是try-with-resources语句其实是一个语法糖而并不是jvm新增的功能。既然是语法糖我们就能想到它有一个好处就是代码简洁。</p>
+<h1 id="为什么这么用？"><a href="#为什么这么用？" class="headerlink" title="为什么这么用？"></a>为什么这么用？</h1><h4 id="1-代码简洁"><a href="#1-代码简洁" class="headerlink" title="1. 代码简洁"></a>1. 代码简洁</h4><p>&emsp;&emsp;上边的介绍让我知道了什么是try-with-resources语法，但是这么写的好处是什么？首先需要明确的是try-with-resources语句其实是一个语法糖而并不是jvm新增的功能。既然是语法糖我们就能想到它有一个好处就是代码简洁。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    FileInputStream inputStream = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        inputStream = <span class="keyword">new</span> FileInputStream(<span class="keyword">new</span> File(<span class="string">"file"</span>));</span><br><span class="line">        System.out.println(inputStream.read());</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(e.getMessage(), e);</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (inputStream != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                inputStream.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(e.getMessage(), e);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> (FileInputStream inputStream = <span class="keyword">new</span> FileInputStream(<span class="keyword">new</span> File(<span class="string">"file"</span>))) &#123;</span><br><span class="line">        System.out.println(inputStream.read());</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(e.getMessage(), e);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>上边两段代码中第一段是我之前经常见过写过的代码，第二段是使用了try-with-resources语法的，一眼见过去就简洁了不少。</p>
-</li>
-<li><p>异常更明确<br>&emsp;&emsp;使用try-with-resource时，如果对资源的处理和对资源的关闭均出现了异常时，“关闭异常”将被抑制，“处理异常”将被抛出。</p>
+<h4 id="2-异常更明确"><a href="#2-异常更明确" class="headerlink" title="2. 异常更明确"></a>2. 异常更明确</h4><p>&emsp;&emsp;使用try-with-resource时，如果对资源的处理和对资源的关闭均出现了异常时，“关闭异常”将被抑制，“处理异常”将被抛出。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">String <span class="title">readFirstLineFromFileWithFinallyBlock</span><span class="params">(String path)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> FileReader(path));</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> br.readLine();</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (br != <span class="keyword">null</span>) br.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>&emsp;&emsp;上面这段代码如果在使用时try块中和finally块中同时出现了异常，被抛出的将会是finally块引发的异常，而try块中出现的异常会被抑制。而使用try-with-resources语法进行处理的话，结果是不一样的。下面的代码块中使用了try-with-resources语法，如果同时出现了异常，try块中的异常将会被抛出而try-with-resources块中异常会被抑制。需要注意的是这里所说的抑制并非丢弃而是存放在“处理异常”的异常列表中。可以通过调用Throwable.getSuppressed方法来检索这些受抑制的异常。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">String <span class="title">readFirstLineFromFile</span><span class="params">(String path)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> (BufferedReader br =</span><br><span class="line">                   <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> FileReader(path))) &#123;</span><br><span class="line">        <span class="keyword">return</span> br.readLine();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">String <span class="title">readFirstLineFromFile</span><span class="params">(String path)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> (BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> FileReader(path))) &#123;</span><br><span class="line">        <span class="keyword">return</span> br.readLine();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <hr>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
-<li>在JDK7及更高级的版本中可以使用try-with-resources进行对资源的关闭，可以让代码更加简洁。</li>
-<li>将对象作用域进行限定，使用完成后也可以不用硬编码的对资源进行关闭。</li>
-<li>使用try-with-resources编写代码时可以更加准确的定位和处理异常。</li>
-</ol>
-
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><h4 id="1-在JDK7及更高级的版本中可以使用try-with-resources进行对资源的关闭，可以让代码更加简洁。"><a href="#1-在JDK7及更高级的版本中可以使用try-with-resources进行对资源的关闭，可以让代码更加简洁。" class="headerlink" title="1. 在JDK7及更高级的版本中可以使用try-with-resources进行对资源的关闭，可以让代码更加简洁。"></a>1. 在JDK7及更高级的版本中可以使用try-with-resources进行对资源的关闭，可以让代码更加简洁。</h4><h4 id="2-将对象作用域进行限定，使用完成后也可以不用硬编码的对资源进行关闭。"><a href="#2-将对象作用域进行限定，使用完成后也可以不用硬编码的对资源进行关闭。" class="headerlink" title="2. 将对象作用域进行限定，使用完成后也可以不用硬编码的对资源进行关闭。"></a>2. 将对象作用域进行限定，使用完成后也可以不用硬编码的对资源进行关闭。</h4><h4 id="3-使用try-with-resources编写代码时可以更加准确的定位和处理异常。"><a href="#3-使用try-with-resources编写代码时可以更加准确的定位和处理异常。" class="headerlink" title="3. 使用try-with-resources编写代码时可以更加准确的定位和处理异常。"></a>3. 使用try-with-resources编写代码时可以更加准确的定位和处理异常。</h4>
       
     </div>
     <div class="article-footer">
@@ -313,7 +300,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://www.deepzero.cn/2019/10/25/try-with-resource-%E8%AF%AD%E6%B3%95%E4%BD%BF%E7%94%A8/" title="try with resource 语法使用" target="_blank" rel="external">http://www.deepzero.cn/2019/10/25/try-with-resource-%E8%AF%AD%E6%B3%95%E4%BD%BF%E7%94%A8/</a>
+      <a href="http://www.deepzero.cn/2019/10/25/try-with-resources-%E8%AF%AD%E6%B3%95%E4%BD%BF%E7%94%A8/" title="try-with-resources 语法使用" target="_blank" rel="external">http://www.deepzero.cn/2019/10/25/try-with-resources-%E8%AF%AD%E6%B3%95%E4%BD%BF%E7%94%A8/</a>
     </li>
     
     <li class="post-copyright-license">
