@@ -5,9 +5,9 @@
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="http://www.deepzero.cn/"/>
   <updated>2019-10-25T02:47:44.185Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>http://www.deepzero.cn/</id>
   
   <author>
     <name>Zhongzheng</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>try-with-resource-statement</title>
-    <link href="http://yoursite.com/2019/10/25/try-with-resource-statement/"/>
-    <id>http://yoursite.com/2019/10/25/try-with-resource-statement/</id>
+    <link href="http://www.deepzero.cn/2019/10/25/try-with-resource-statement/"/>
+    <id>http://www.deepzero.cn/2019/10/25/try-with-resource-statement/</id>
     <published>2019-10-25T02:37:06.739Z</published>
     <updated>2019-10-25T02:47:44.185Z</updated>
     
@@ -43,8 +43,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="http://yoursite.com/2019/10/24/hello-world/"/>
-    <id>http://yoursite.com/2019/10/24/hello-world/</id>
+    <link href="http://www.deepzero.cn/2019/10/24/hello-world/"/>
+    <id>http://www.deepzero.cn/2019/10/24/hello-world/</id>
     <published>2019-10-24T11:17:31.190Z</published>
     <updated>2019-10-25T02:19:31.524Z</updated>
     
